@@ -145,8 +145,67 @@
             font-size: 13px;
             opacity: .7;
         }
+
+
+
+        .side-img {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            width: min(320px, 28vw);
+            aspect-ratio: 1 / 1;
+            border-radius: 26px;
+            overflow: hidden;
+            box-shadow: 0 22px 60px rgba(0, 0, 0, .18);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .45s ease, transform .45s ease;
+            display: grid;
+            place-items: center;
+            background: rgba(255, 255, 255, .25);
+            backdrop-filter: blur(8px);
+        }
+
+        .side-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .side-img.left {
+            left: 5vw;
+            transform: translateY(-50%) translateX(-10px);
+        }
+
+        .side-img.right {
+            right: 5vw;
+            transform: translateY(-50%) translateX(10px);
+        }
+
+        /* Når vi “slår på” bilder */
+        .side-img.show {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+
+        /* Litt responsiv: skjul sidebilder på veldig små skjermer */
+        @media (max-width: 650px) {
+            .side-img {
+                display: none;
+            }
+        }
     </style>
 </head>
+
+<!-- Side-bilder (skjult til JA trykkes) -->
+<div class="side-img left" id="sideLeft">
+    <img id="imgLeft" src="dog.jpg" alt="minne 1">
+</div>
+
+<div class="side-img right" id="sideRight">
+    <img id="imgRight" src="dab.jpg" alt="minne 2">
+</div>
 
 <body>
     <div class="card">
@@ -163,13 +222,15 @@
         </div>
 
         <div class="msg" id="msg"></div>
-        <div class="footer">Tip: ikke vits å trykke NEI</div>
+        <div class="footer">Tips: ikke vits å trykke NEI</div>
     </div>
+    <audio id="yesSound" src="yes.mp3"></audio>
 
     <script>
         const yesBtn = document.getElementById("yesBtn");
         const noBtn = document.getElementById("noBtn");
         const msg = document.getElementById("msg");
+        const yesSound = document.getElementById("yesSound");
 
         const noTexts = [
             "NEI-knappen funker visst dårlig... ops"
@@ -179,6 +240,9 @@
         function random(min, max) {
             return Math.random() * (max - min) + min;
         }
+
+
+
 
         function moveNoButton() {
             // Flytt innenfor viewport, men hold litt margin
@@ -238,7 +302,7 @@
             valentineQuestion.style.display = "none";
 
             // Endre melding
-            msg.textContent = "YESS!! 💖 Jeg gleder meg så mye";
+            msg.textContent = "Yey! Jeg gleder meg så mye, glad i du";
             confettiBurst(120);
 
             // Lås NEI-knappen
@@ -247,11 +311,44 @@
             noBtn.style.cursor = "not-allowed";
 
             // Gjør JA-knappen stor og i fokus
-            yesBtn.textContent = "💍 Du er offisielt min valentin!";
-            yesBtn.style.fontSize = "22px";
+            yesBtn.innerHTML = `
+            <span>Du er offisielt min valentin!</span>`;
+
+            yesBtn.style.fontSize = "24px";
             yesBtn.style.padding = "18px 28px";
             yesBtn.style.transform = "scale(1.3)";
             yesBtn.style.boxShadow = "0 20px 40px #ff4d6d88";
+
+
+            yesSound.currentTime = 0;
+            yesSound.play();
+
+
+            const sideLeft = document.getElementById("sideLeft");
+            const sideRight = document.getElementById("sideRight");
+            const imgLeft = document.getElementById("imgLeft");
+            const imgRight = document.getElementById("imgRight");
+
+            // (valgfritt) flere bilder å velge mellom
+            const leftPics = ["dog.jpg"];
+            const rightPics = ["dab.jpg"];
+
+            function pickRandom(arr) {
+                return arr[Math.floor(Math.random() * arr.length)];
+            }
+            sideLeft.classList.add("show");
+            sideRight.classList.add("show");
+            yesBtn.addEventListener("click", () => {
+                // velg random bilder hver gang (valgfritt)
+                imgLeft.src = pickRandom(leftPics);
+                imgRight.src = pickRandom(rightPics);
+
+                // vis dem
+                sideLeft.classList.add("show");
+                sideRight.classList.add("show");
+            });
+
+
         });
 
     </script>
