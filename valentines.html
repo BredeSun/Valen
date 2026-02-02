@@ -1,228 +1,260 @@
 <!doctype html>
 <html lang="no">
+
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Valentin?</title>
-  <style>
-    :root{
-      --bg1:#ffdde1;
-      --bg2:#ee9ca7;
-      --card:#ffffffcc;
-      --text:#2b2b2b;
-      --yes:#ff4d6d;
-      --no:#6c757d;
-    }
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Valentin?</title>
+    <style>
+        :root {
+            --bg1: #ffdde1;
+            --bg2: #ee9ca7;
+            --card: #ffffffcc;
+            --text: #2b2b2b;
+            --yes: #ff4d6d;
+            --no: #6c757d;
+        }
 
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      min-height:100vh;
-      display:grid;
-      place-items:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(circle at top, var(--bg1), var(--bg2));
-      color:var(--text);
-      overflow:hidden;
-    }
+        * {
+            box-sizing: border-box;
+        }
 
-    .card{
-      width:min(520px, 92vw);
-      background:var(--card);
-      backdrop-filter: blur(8px);
-      border:1px solid #ffffff80;
-      border-radius:24px;
-      padding:28px 22px;
-      text-align:center;
-      box-shadow: 0 20px 50px #00000025;
-      position:relative;
-    }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+            background: radial-gradient(circle at top, var(--bg1), var(--bg2));
+            color: var(--text);
+            overflow: hidden;
+        }
 
-    h1{
-      margin: 6px 0 10px;
-      font-size: clamp(28px, 4vw, 40px);
-      letter-spacing:0.2px;
-    }
+        .card {
+            width: min(520px, 92vw);
+            background: var(--card);
+            backdrop-filter: blur(8px);
+            border: 1px solid #ffffff80;
+            border-radius: 24px;
+            padding: 28px 22px;
+            text-align: center;
+            box-shadow: 0 20px 50px #00000025;
+            position: relative;
+        }
 
-    p{
-      margin:0 0 22px;
-      font-size: 16px;
-      opacity:.9;
-    }
+        h1 {
+            margin: 6px 0 10px;
+            font-size: clamp(28px, 4vw, 40px);
+            letter-spacing: 0.2px;
+        }
 
-    .heart{
-      font-size:56px;
-      animation: pulse 1.2s infinite;
-      display:inline-block;
-      margin-bottom: 8px;
-      filter: drop-shadow(0 8px 14px #ff4d6d55);
-    }
+        p {
+            margin: 0 0 22px;
+            font-size: 16px;
+            opacity: .9;
+        }
 
-    @keyframes pulse{
-      0%,100%{ transform: scale(1); }
-      50%{ transform: scale(1.08); }
-    }
+        .heart {
+            font-size: 56px;
+            animation: pulse 1.2s infinite;
+            display: inline-block;
+            margin-bottom: 8px;
+            filter: drop-shadow(0 8px 14px #ff4d6d55);
+        }
 
-    .buttons{
-      display:flex;
-      gap:12px;
-      justify-content:center;
-      flex-wrap:wrap;
-      margin-top: 10px;
-    }
+        @keyframes pulse {
 
-    button{
-      border:0;
-      padding: 12px 18px;
-      border-radius: 14px;
-      font-size: 16px;
-      cursor:pointer;
-      transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
-      box-shadow: 0 10px 25px #0000001f;
-      user-select:none;
-    }
+            0%,
+            100% {
+                transform: scale(1);
+            }
 
-    button:hover{ transform: translateY(-2px); filter: brightness(1.02); }
-    button:active{ transform: translateY(0px) scale(0.98); }
+            50% {
+                transform: scale(1.08);
+            }
+        }
 
-    #yesBtn{
-      background: linear-gradient(135deg, #ff4d6d, #ff758f);
-      color:white;
-    }
+        .buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
 
-    #noBtn{
-      background: linear-gradient(135deg, #6c757d, #8a939b);
-      color:white;
-      position:relative;
-    }
+        button {
+            border: 0;
+            padding: 12px 18px;
+            border-radius: 14px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform .12s ease, box-shadow .12s ease, filter .12s ease;
+            box-shadow: 0 10px 25px #0000001f;
+            user-select: none;
+        }
 
-    .msg{
-      margin-top:18px;
-      font-weight:600;
-      font-size:18px;
-      min-height: 28px;
-    }
+        button:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.02);
+        }
 
-    /* Confetti */
-    .confetti{
-      position: fixed;
-      top: -10px;
-      width: 10px;
-      height: 14px;
-      opacity: 0.9;
-      border-radius: 2px;
-      animation: fall linear forwards;
-      z-index: 9999;
-      pointer-events:none;
-    }
-    @keyframes fall{
-      to{
-        transform: translateY(110vh) rotate(720deg);
-        opacity: 1;
-      }
-    }
+        button:active {
+            transform: translateY(0px) scale(0.98);
+        }
 
-    .footer{
-      margin-top: 14px;
-      font-size: 13px;
-      opacity: .7;
-    }
-  </style>
+        #yesBtn {
+            background: linear-gradient(135deg, #ff4d6d, #ff758f);
+            color: white;
+        }
+
+        #noBtn {
+            background: linear-gradient(135deg, #6c757d, #8a939b);
+            color: white;
+            position: relative;
+        }
+
+        .msg {
+            margin-top: 18px;
+            font-weight: 600;
+            font-size: 18px;
+            min-height: 28px;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            top: -10px;
+            width: 10px;
+            height: 14px;
+            opacity: 0.9;
+            border-radius: 2px;
+            animation: fall linear forwards;
+            z-index: 9999;
+            pointer-events: none;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+                opacity: 1;
+            }
+        }
+
+        .footer {
+            margin-top: 14px;
+            font-size: 13px;
+            opacity: .7;
+        }
+    </style>
 </head>
-<body>
-  <div class="card">
-    <div class="heart">💖</div>
-    <h1>Vil du være min valentin?</h1>
-    <p>Jeg har et viktig spørsmål… 👀</p>
 
-    <div class="buttons">
-      <button id="yesBtn">JA 💘</button>
-      <button id="noBtn">NEI 😅</button>
+<body>
+    <div class="card">
+        <div class="heart">💖</div>
+        <h1>Kotryna</h1>
+        <p id="questionText">Jeg har et viktig spørsmål… </p>
+        <h2 id="valentineQuestion">Vil du være min valentin?</h2>
+
+
+
+        <div class="buttons">
+            <button id="yesBtn">JA 💘</button>
+            <button id="noBtn">NEI </button>
+        </div>
+
+        <div class="msg" id="msg"></div>
+        <div class="footer">Tip: ikke vits å trykke NEI</div>
     </div>
 
-    <div class="msg" id="msg"></div>
-    <div class="footer">Tip: prøv å trykke NEI 😉</div>
-  </div>
+    <script>
+        const yesBtn = document.getElementById("yesBtn");
+        const noBtn = document.getElementById("noBtn");
+        const msg = document.getElementById("msg");
 
-  <script>
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
-    const msg = document.getElementById("msg");
+        const noTexts = [
+            "NEI-knappen funker visst dårlig... ops"
+        ];
+        let noCount = 0;
 
-    const noTexts = [
-      "Er du helt sikker? 🥺",
-      "Tenk litt til… 😳",
-      "Plis? 👉👈",
-      "Okei men… jeg spør igjen 😅",
-      "NEI-knappen funker visst dårlig 🤭"
-    ];
-    let noCount = 0;
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
 
-    function random(min, max){
-      return Math.random() * (max - min) + min;
-    }
+        function moveNoButton() {
+            // Flytt innenfor viewport, men hold litt margin
+            const padding = 20;
+            const btnRect = noBtn.getBoundingClientRect();
+            const maxX = window.innerWidth - btnRect.width - padding;
+            const maxY = window.innerHeight - btnRect.height - padding;
 
-    function moveNoButton(){
-      // Flytt innenfor viewport, men hold litt margin
-      const padding = 20;
-      const btnRect = noBtn.getBoundingClientRect();
-      const maxX = window.innerWidth - btnRect.width - padding;
-      const maxY = window.innerHeight - btnRect.height - padding;
+            const x = random(padding, Math.max(padding, maxX));
+            const y = random(padding, Math.max(padding, maxY));
 
-      const x = random(padding, Math.max(padding, maxX));
-      const y = random(padding, Math.max(padding, maxY));
+            noBtn.style.position = "fixed";
+            noBtn.style.left = x + "px";
+            noBtn.style.top = y + "px";
+        }
 
-      noBtn.style.position = "fixed";
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
-    }
+        function confettiBurst(amount = 80) {
+            const colors = ["#ff4d6d", "#ffd6e0", "#ffffff", "#ff758f", "#7c3aed", "#22c55e", "#f59e0b"];
+            for (let i = 0; i < amount; i++) {
+                const c = document.createElement("div");
+                c.className = "confetti";
+                c.style.left = random(0, window.innerWidth) + "px";
+                c.style.background = colors[Math.floor(Math.random() * colors.length)];
+                c.style.transform = `rotate(${random(0, 360)}deg)`;
+                c.style.animationDuration = random(1.8, 3.4) + "s";
+                c.style.width = random(6, 12) + "px";
+                c.style.height = random(8, 16) + "px";
+                document.body.appendChild(c);
 
-    function confettiBurst(amount = 80){
-      const colors = ["#ff4d6d", "#ffd6e0", "#ffffff", "#ff758f", "#7c3aed", "#22c55e", "#f59e0b"];
-      for(let i=0; i<amount; i++){
-        const c = document.createElement("div");
-        c.className = "confetti";
-        c.style.left = random(0, window.innerWidth) + "px";
-        c.style.background = colors[Math.floor(Math.random()*colors.length)];
-        c.style.transform = `rotate(${random(0,360)}deg)`;
-        c.style.animationDuration = random(1.8, 3.4) + "s";
-        c.style.width = random(6, 12) + "px";
-        c.style.height = random(8, 16) + "px";
-        document.body.appendChild(c);
+                setTimeout(() => c.remove(), 4000);
+            }
+        }
 
-        setTimeout(() => c.remove(), 4000);
-      }
-    }
+        noBtn.addEventListener("mouseenter", () => {
+            noCount++;
+            msg.textContent = noTexts[Math.min(noCount - 1, noTexts.length - 1)];
+            moveNoButton();
 
-    noBtn.addEventListener("mouseenter", () => {
-      noCount++;
-      msg.textContent = noTexts[Math.min(noCount-1, noTexts.length-1)];
-      moveNoButton();
+            // Gjør JA litt større etter hvert (ufarlig press 😄)
+            const scale = Math.min(1.0 + noCount * 0.05, 1.35);
+            yesBtn.style.transform = `scale(${scale})`;
+        });
 
-      // Gjør JA litt større etter hvert (ufarlig press 😄)
-      const scale = Math.min(1.0 + noCount * 0.05, 1.35);
-      yesBtn.style.transform = `scale(${scale})`;
-    });
+        noBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            noCount++;
+            msg.textContent = noTexts[Math.min(noCount - 1, noTexts.length - 1)];
+            moveNoButton();
+        });
 
-    noBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      noCount++;
-      msg.textContent = noTexts[Math.min(noCount-1, noTexts.length-1)];
-      moveNoButton();
-    });
+        const questionText = document.getElementById("questionText");
+        const valentineQuestion = document.getElementById("valentineQuestion");
 
-    yesBtn.addEventListener("click", () => {
-      msg.textContent = "YESS!! 💖 Jeg gleder meg så mye 😍";
-      confettiBurst(120);
+        yesBtn.addEventListener("click", () => {
+            // Skjul spørsmålene
+            questionText.style.display = "none";
+            valentineQuestion.style.display = "none";
 
-      // Lås NEI-knappen "for sikkerhets skyld" 😄
-      noBtn.disabled = true;
-      noBtn.style.opacity = 0.6;
-      noBtn.style.cursor = "not-allowed";
+            // Endre melding
+            msg.textContent = "YESS!! 💖 Jeg gleder meg så mye";
+            confettiBurst(120);
 
-      // Litt ekstra kos
-      yesBtn.textContent = "💍 Okei, vi er offisielt valentiner!";
-    });
-  </script>
+            // Lås NEI-knappen
+            noBtn.disabled = true;
+            noBtn.style.opacity = 0.6;
+            noBtn.style.cursor = "not-allowed";
+
+            // Gjør JA-knappen stor og i fokus
+            yesBtn.textContent = "💍 Du er offisielt min valentin!";
+            yesBtn.style.fontSize = "22px";
+            yesBtn.style.padding = "18px 28px";
+            yesBtn.style.transform = "scale(1.3)";
+            yesBtn.style.boxShadow = "0 20px 40px #ff4d6d88";
+        });
+
+    </script>
 </body>
+
 </html>
